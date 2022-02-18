@@ -1,0 +1,16 @@
+Pages
+Login Form: Email, Password (Only Predefined admin user can login)
+Movie ticket booking
+Form fields person name, phone, select movie, ticket quantity, show payable amount and “Book Now” button.
+Movie listing. Form fields are movie name, ticket quantity, time, per ticket price. 
+View sold tickets in table view (purchaser name, phone, movie name, number of purchased ticket, cash received)
+Save user info to local database, use validations, don’t allow user to over book ticket, use your best practice. 
+
+
+Booking Offer: 
+Buy 3 tickets get 1 ticket free. 
+For example, if user buy 30 ticket then he will get 10 free tickets.
+Let say single ticket price Rs. 100. And If user buy 10 ticket then payable amount should be 800 (2 free tickets)
+
+UI/UX:
+Use your best practice 
