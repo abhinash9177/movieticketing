@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:movie_ticket_booking/Booking/booking_page.dart';
 import 'package:movie_ticket_booking/const/const.dart';
 
 import 'package:flutter/material.dart';
@@ -17,18 +18,9 @@ class _LoginPageState extends State<LoginPage> {
 
   TextEditingController passwordcontoller = TextEditingController();
 
-  bool not = true;
   String text = '';
   bool passvisibile = true;
 
-  @override
-  void initState() {
-    super.initState();
-    // sessionstore();
-  }
-  //drop down
-
-  //form fields
   final _signinkey = GlobalKey<FormState>();
 
   @override
@@ -74,21 +66,21 @@ class _LoginPageState extends State<LoginPage> {
                   child: Form(
                     key: _signinkey,
                     child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        const SizedBox(height: 40),
                         const Center(
                             child: Icon(
-                          Icons.movie_filter_outlined,
-                          size: 50,
+                          Icons.slow_motion_video,
+                          size: 80,
                         )),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.15,
+                          height: MediaQuery.of(context).size.height * 0.10,
                         ),
                         SizedBox(
-                          //color: Colors.white.withOpacity(0.5),
                           width: MediaQuery.of(context).size.width * 0.80,
                           height: 75,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             controller: mobilecontoller,
                             decoration: InputDecoration(
                               filled: true,
@@ -100,14 +92,13 @@ class _LoginPageState extends State<LoginPage> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1, color: Colors.cyan[300]!)),
-                              prefixIcon: const Icon(Icons.person_outline,
+                              prefixIcon: const Icon(Icons.phone_android,
                                   color: Colors.black54),
                               suffixIcon: text.isNotEmpty
                                   ? GestureDetector(
                                       child: const Icon(Icons.close,
                                           color: Colors.black54),
                                       onTap: () {
-                                        //passwordcontoller.clear();
                                         setState(() {
                                           text = '';
                                         });
@@ -122,7 +113,6 @@ class _LoginPageState extends State<LoginPage> {
                                 text = value;
                               });
                             },
-                            // The validator receives the text that the user has entered.
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter some text';
@@ -182,31 +172,6 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 10),
                         SizedBox(width: 150, child: button('SignIn', signIn)),
                         const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Don\'t have an account.?'),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            SizedBox(
-                              width: 80,
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  foregroundColor: MaterialStateProperty.all<
-                                          Color>(
-                                      const Color.fromARGB(255, 99, 96, 96)),
-                                ),
-                                onPressed: signup,
-                                child: const Text(
-                                  'Sign up',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -223,20 +188,31 @@ class _LoginPageState extends State<LoginPage> {
     if (_signinkey.currentState!.validate()) {
       print('Your Name: ${mobilecontoller.text}');
       print('contct name is: ${passwordcontoller.text}');
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const AlertDialog(
-            title: Text("some thing went wrong."),
-            content: Text('signin'),
-          );
-        },
-      );
-    }
-  }
 
-  void signup() {
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => SingnUpPage()));
+      if (int.parse(mobilecontoller.text) != 12345) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AlertDialog(
+              title: Text("User not found."),
+              content: Text('Use this number 12345'),
+            );
+          },
+        );
+      } else if (passwordcontoller.text != 'admin') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AlertDialog(
+              title: Text("Wrong Password"),
+              content: Text('The Password is: admin'),
+            );
+          },
+        );
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const BookTicketsPage()));
+      }
+    }
   }
 }

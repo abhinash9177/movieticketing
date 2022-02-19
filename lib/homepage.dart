@@ -26,17 +26,29 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: 20),
                 const SizedBox(
                     height: 50,
                     child: Text(
-                      'Movie Ticket Booking',
+                      'Abhinash Pallepogu',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 97, 96, 96),
+                      ),
+                    )),
+                const SizedBox(height: 20),
+                const SizedBox(
+                    height: 50,
+                    child: Text(
+                      'Welcome to Movie Ticket Booking',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 97, 96, 96),
                       ),
                     )),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 const SizedBox(
                     height: 50,
                     child: Text(
@@ -48,12 +60,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     )),
                 const SizedBox(height: 15),
-
                 SizedBox(width: 150, child: button('Login', signIn)),
                 const SizedBox(height: 50),
-                SizedBox(width: 150, child: button('Signup', signup)),
-
-                //SizedBox(),
               ],
             ),
           ),
@@ -65,10 +73,5 @@ class _HomePageState extends State<HomePage> {
   void signIn() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
-  }
-
-  void signup() {
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => SingnUpPage()));
   }
 }
