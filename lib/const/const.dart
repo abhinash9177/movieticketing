@@ -77,23 +77,3 @@ class Mytextfield extends StatelessWidget {
     );
   }
 }
-
-Widget datebutton(function) {
-  return ElevatedButton(
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: BorderSide(
-                  width: 2.0,
-                  color: Colors.red[100]!,
-                ))),
-        elevation: MaterialStateProperty.all(6.0),
-        backgroundColor: MaterialStateProperty.all(Colors.cyan[500]),
-      ),
-      onPressed: function,
-      child: const Icon(
-        Icons.date_range,
-        color: Colors.white,
-      ));
-}
