@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:movie_ticket_booking/Booking/booking_page.dart';
 import 'package:movie_ticket_booking/const/const.dart';
-
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_booking/homepage.dart';
 
