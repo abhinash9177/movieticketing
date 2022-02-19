@@ -252,112 +252,113 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
         );
 
         ScaffoldMessenger.of(context).showSnackBar(overticket);
-      }
-      if (numberoftickets == 0) {
-        final lesstickets = SnackBar(
-          content: const Text('Please select atleast 1 ticket!'),
-          action: SnackBarAction(
-            label: 'Undo',
-            onPressed: () {
-              Navigator.of(context);
-            },
-          ),
-        );
-
-        ScaffoldMessenger.of(context).showSnackBar(lesstickets);
       } else {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => SizedBox(
-            height: 300,
-            child: AlertDialog(
-              title: const Text('Ticket Confirmation'),
-              content: Table(
-                border: TableBorder.all(width: 1.0),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: [
-                  TableRow(children: [
-                    const SizedBox(
-                        height: 50, child: Center(child: Text('name'))),
-                    Center(child: Text(namecontroller.text)),
-                  ]),
-                  TableRow(children: [
-                    const SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Text('Mobile'),
-                        )),
-                    Center(
-                      child: Text(phonenumbercontroller.text),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    const SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Text('Movie'),
-                        )),
-                    Center(
-                      child: Text(selectmovie!),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    const SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Text('Tickets'),
-                        )),
-                    Center(
-                      child: Text(numberoftickets.toString()),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    const SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Text('Amount'),
-                        )),
-                    Center(
-                      child: Text(price.toString()),
-                    ),
-                  ])
+        if (numberoftickets == 0) {
+          final lesstickets = SnackBar(
+            content: const Text('Please select atleast 1 ticket!'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                Navigator.of(context);
+              },
+            ),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(lesstickets);
+        } else {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => SizedBox(
+              height: 300,
+              child: AlertDialog(
+                title: const Text('Ticket Confirmation'),
+                content: Table(
+                  border: TableBorder.all(width: 1.0),
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                  children: [
+                    TableRow(children: [
+                      const SizedBox(
+                          height: 50, child: Center(child: Text('name'))),
+                      Center(child: Text(namecontroller.text)),
+                    ]),
+                    TableRow(children: [
+                      const SizedBox(
+                          height: 50,
+                          child: Center(
+                            child: Text('Mobile'),
+                          )),
+                      Center(
+                        child: Text(phonenumbercontroller.text),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      const SizedBox(
+                          height: 50,
+                          child: Center(
+                            child: Text('Movie'),
+                          )),
+                      Center(
+                        child: Text(selectmovie!),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      const SizedBox(
+                          height: 50,
+                          child: Center(
+                            child: Text('Tickets'),
+                          )),
+                      Center(
+                        child: Text(numberoftickets.toString()),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      const SizedBox(
+                          height: 50,
+                          child: Center(
+                            child: Text('Amount'),
+                          )),
+                      Center(
+                        child: Text(price.toString()),
+                      ),
+                    ])
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      await openBox();
+                      setState(() {
+                        savedata = [
+                          {
+                            'name': namecontroller.text,
+                            'mobile': phonenumbercontroller.text,
+                            'movie': selectmovie,
+                            'tickets': numberoftickets,
+                            'amount': price
+                          }
+                        ];
+                      });
+                      await putData(savedata).then((value) =>
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyBookings())));
+                      namecontroller.clear();
+                      phonenumbercontroller.clear();
+                    },
+                    child: const Text('Confirm'),
+                  ),
                 ],
               ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    await openBox();
-                    setState(() {
-                      savedata = [
-                        {
-                          'name': namecontroller.text,
-                          'mobile': phonenumbercontroller.text,
-                          'movie': selectmovie,
-                          'tickets': numberoftickets,
-                          'amount': price
-                        }
-                      ];
-                    });
-                    await putData(savedata).then((value) =>
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyBookings())));
-                    namecontroller.clear();
-                    phonenumbercontroller.clear();
-                  },
-                  child: const Text('Confirm'),
-                ),
-              ],
             ),
-          ),
-        );
+          );
+        }
       }
     }
   }
